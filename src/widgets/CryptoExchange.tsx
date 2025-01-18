@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CryptoInput } from '~/components/CryptoInput';
+import { ReverseButton } from '~/components/ReverseButton';
 
 const Root = styled.div`
 	position: relative;
@@ -24,12 +25,18 @@ const Root = styled.div`
 	background: color-mix(in srgb, var(--color-neutral-800) 85%, transparent);
 `;
 
+const ReverseButtonWrapper = styled.div`
+	margin-left: auto;
+`;
+
 const CryptoExchange = () => {
 	return (
 		<Root>
 			<CryptoInput label="You Send" />
 
-			<button type="button">{'Change <>'}</button>
+			<ReverseButtonWrapper>
+				<ReverseButton />
+			</ReverseButtonWrapper>
 
 			<CryptoInput label="You Get" />
 		</Root>
