@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Content } from './components/Content';
+import { CryptoExchange } from './widgets/CryptoExchange';
 
 const Root = styled.div`
 	height: 100dvh;
@@ -13,7 +13,7 @@ const Root = styled.div`
 const App = () => {
 	return (
 		<Root>
-			<Content />
+			<CryptoExchange />
 		</Root>
 	);
 };

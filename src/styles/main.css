@@ -1,6 +1,7 @@
 @import './reset.css';
 @import './variables.css';
 @import 'normalize.css/normalize.css';
+@import '@mantine/core/styles.css';
 
 /* Apply a natural box layout model to all elements */
 * {
