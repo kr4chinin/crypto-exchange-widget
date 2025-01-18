@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ConnectionLine } from '~/components/ConnectionLine';
 import { CryptoInput } from '~/components/CryptoInput';
 import { ReverseButton } from '~/components/ReverseButton';
 
@@ -12,7 +13,6 @@ const Root = styled.div`
 
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
 
 	padding: 16px;
 	border-radius: 16px;
@@ -26,13 +26,16 @@ const Root = styled.div`
 `;
 
 const ReverseButtonWrapper = styled.div`
-	margin-left: auto;
+	margin: 16px 0 0 auto;
 `;
 
 const CryptoExchange = () => {
 	return (
 		<Root>
 			<CryptoInput label="You Send" />
+
+			<ConnectionLine $left="30%" />
+			<ConnectionLine $left="35%" />
 
 			<ReverseButtonWrapper>
 				<ReverseButton />
