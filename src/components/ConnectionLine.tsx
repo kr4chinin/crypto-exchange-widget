@@ -5,7 +5,7 @@ export const ConnectionLine = styled.div<{ $left: CSSProperties['left'] }>`
 	position: absolute;
 	top: 78px;
 	left: ${p => p.$left};
-	bottom: 190px;
+	bottom: 150px;
 
 	z-index: 3;
 

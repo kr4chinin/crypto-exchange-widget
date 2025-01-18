@@ -1,3 +1,4 @@
+import { Button, Text } from '@mantine/core';
 import styled from 'styled-components';
 import { ConnectionLine } from '~/components/ConnectionLine';
 import { CryptoInput } from '~/components/CryptoInput';
@@ -9,12 +10,12 @@ const Root = styled.div`
 	z-index: var(--crypto-exchange-widget-z-index);
 
 	width: 450px;
-	height: 350px;
+	height: 310px;
 
 	display: flex;
 	flex-direction: column;
 
-	padding: 16px;
+	padding: 16px 24px;
 	border-radius: 16px;
 	border: 1px solid var(--color-neutral-950);
 	backdrop-filter: blur(8px);
@@ -27,6 +28,14 @@ const Root = styled.div`
 
 const ReverseButtonWrapper = styled.div`
 	margin: 16px 0 0 auto;
+`;
+
+const BottomBlockWrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	margin-top: 32px;
 `;
 
 const CryptoExchange = () => {
@@ -42,6 +51,14 @@ const CryptoExchange = () => {
 			</ReverseButtonWrapper>
 
 			<CryptoInput label="You Get" />
+
+			<BottomBlockWrapper>
+				<Text>1 BTC = 0.001 ETH</Text>
+
+				<Button variant="gradient" w="fit-content">
+					Exchange
+				</Button>
+			</BottomBlockWrapper>
 		</Root>
 	);
 };
