@@ -1,41 +1,48 @@
-import { Select, TextInput } from '@mantine/core';
+import { TextInput } from '@mantine/core';
+import styled from 'styled-components';
+import { CryptoSelect } from './CryptoSelect';
 
-const data = [
-	{ value: 'eur', label: '🇪🇺 EUR' },
-	{ value: 'usd', label: '🇺🇸 USD' },
-	{ value: 'cad', label: '🇨🇦 CAD' },
-	{ value: 'gbp', label: '🇬🇧 GBP' },
-	{ value: 'aud', label: '🇦🇺 AUD' },
-];
+const Root = styled.div`
+	width: 100%;
+
+	display: flex;
+	align-items: flex-end;
+`;
+
+const InputLabel = styled.label`
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+`;
+
+const StyledTextInput = styled(TextInput)`
+	input {
+		border-right: none;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+`;
 
 interface Props {
 	label: string;
 }
 
-export const CryptoInput = (props: Props) => {
+const CryptoInput = (props: Props) => {
 	const { label } = props;
 
 	return (
-		<TextInput
-			type="number"
-			label={label}
-			placeholder="1000"
-			rightSectionWidth={92}
-			rightSection={
-				<Select
-					data={data}
-					rightSectionWidth={28}
-					styles={{
-						input: {
-							fontWeight: 500,
-							borderTopLeftRadius: 0,
-							borderBottomLeftRadius: 0,
-							width: 92,
-							marginRight: -2,
-						},
-					}}
-				/>
-			}
-		/>
+		<Root>
+			<InputLabel>
+				{label}
+
+				<StyledTextInput type="number" placeholder="0" rightSectionWidth={160} />
+			</InputLabel>
+
+			<CryptoSelect />
+		</Root>
 	);
 };
+
+export { CryptoInput };

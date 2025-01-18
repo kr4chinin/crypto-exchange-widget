@@ -1,7 +1,10 @@
 import styled from 'styled-components';
+import { Overlay } from './components/Overlay';
 import { CryptoExchange } from './widgets/CryptoExchange';
 
 const Root = styled.div`
+	position: relative;
+
 	height: 100dvh;
 	width: 100dvw;
 
@@ -13,6 +16,8 @@ const Root = styled.div`
 const App = () => {
 	return (
 		<Root>
+			<Overlay />
+
 			<CryptoExchange />
 		</Root>
 	);

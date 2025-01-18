@@ -17,7 +17,7 @@ const router = createRouter();
 root.render(
 	<ErrorBoundary fallback={<div>Something went wrong!</div>}>
 		<QueryClientProvider client={queryClient}>
-			<MantineProvider>
+			<MantineProvider defaultColorScheme="dark">
 				<RouterProvider router={router} />
 			</MantineProvider>
 		</QueryClientProvider>
