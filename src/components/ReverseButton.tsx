@@ -1,8 +1,9 @@
-import { Button, Tooltip, type ButtonProps } from '@mantine/core';
+import { Button, Tooltip } from '@mantine/core';
 import { ArrowRightLeft } from 'lucide-react';
 import { memo } from 'react';
+import type { EnhancedMantineButtonProps } from '~/types/EnhancedMantineButtonProps';
 
-const ReverseButton = memo((props: ButtonProps) => {
+const ReverseButton = memo((props: EnhancedMantineButtonProps) => {
 	return (
 		<Tooltip label="Reverse">
 			<Button variant="default" {...props} w="fit-content">
