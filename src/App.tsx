@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Overlay } from './components/Overlay';
-import { CryptoExchange } from './widgets/CryptoExchange';
+import { CryptoExchange } from './widgets/CryptoExchange/CryptoExchange';
 
 const Root = styled.div`
 	position: relative;
@@ -11,6 +11,8 @@ const Root = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	padding-bottom: 80px;
 `;
 
 const App = () => {
