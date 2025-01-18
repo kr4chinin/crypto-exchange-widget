@@ -1,13 +1,29 @@
-import { Button, Text } from '@mantine/core';
 import styled from 'styled-components';
-import { ConnectionLine } from '~/components/ConnectionLine';
-import { CryptoInput } from '~/components/CryptoInput';
-import { ReverseButton } from '~/components/ReverseButton';
 
-const Root = styled.div`
-	position: relative;
+export const Root = styled.article`
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 
 	z-index: var(--crypto-exchange-widget-z-index);
+`;
+
+export const Label = styled.h1`
+	font-size: 24px;
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.9);
+	letter-spacing: -0.00625em;
+
+	padding-left: 24px;
+
+	text-shadow:
+		0 0 7px rgba(255, 255, 255, 0.2),
+		0 0 10px rgba(255, 255, 255, 0.1),
+		0 0 21px rgba(255, 255, 255, 0.05);
+`;
+
+export const ExchangeBlock = styled.div`
+	position: relative;
 
 	width: 450px;
 	height: 310px;
@@ -58,45 +74,14 @@ const Root = styled.div`
 	}
 `;
 
-const ReverseButtonWrapper = styled.div`
+export const ReverseButtonWrapper = styled.div`
 	margin: 16px 0 0 auto;
 `;
 
-const BottomBlockWrapper = styled.div`
+export const BottomBlockWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 
 	margin-top: 32px;
 `;
-
-const CryptoExchange = () => {
-	return (
-		<Root>
-			<CryptoInput label="You Send" />
-
-			<ConnectionLine $left="30%" />
-			<ConnectionLine $left="35%" />
-
-			<ReverseButtonWrapper>
-				<ReverseButton />
-			</ReverseButtonWrapper>
-
-			<CryptoInput label="You Get" />
-
-			<BottomBlockWrapper>
-				<Text>1 BTC = 0.001 ETH</Text>
-
-				<Button
-					variant="gradient"
-					w="fit-content"
-					gradient={{ from: 'gray', to: 'cyan', deg: 156 }}
-				>
-					Exchange
-				</Button>
-			</BottomBlockWrapper>
-		</Root>
-	);
-};
-
-export { CryptoExchange };
