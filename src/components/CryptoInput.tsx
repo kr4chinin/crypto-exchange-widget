@@ -1,4 +1,5 @@
-import { TextInput } from '@mantine/core';
+import { CloseButton, NumberInput } from '@mantine/core';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { CryptoSelect } from './CryptoSelect';
 
@@ -17,7 +18,7 @@ const InputLabel = styled.label`
 	gap: 8px;
 `;
 
-const StyledTextInput = styled(TextInput)`
+const StyledNumberInput = styled(NumberInput)`
 	input {
 		border-right: none;
 		border-top-right-radius: 0;
@@ -32,12 +33,28 @@ interface Props {
 const CryptoInput = (props: Props) => {
 	const { label } = props;
 
+	const [value, setValue] = useState<number | string>('');
+
 	return (
 		<Root>
 			<InputLabel>
 				{label}
 
-				<StyledTextInput type="number" placeholder="0" rightSectionWidth={160} />
+				<StyledNumberInput
+					min={0}
+					value={value}
+					placeholder="0"
+					rightSectionWidth={40}
+					rightSection={
+						<CloseButton
+							variant="transparent"
+							aria-label="Clear input"
+							onClick={() => setValue('')}
+							style={{ display: value ? undefined : 'none' }}
+						/>
+					}
+					onChange={setValue}
+				/>
 			</InputLabel>
 
 			<CryptoSelect />
