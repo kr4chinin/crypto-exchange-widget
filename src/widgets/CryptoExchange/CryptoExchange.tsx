@@ -4,6 +4,7 @@ import { ConnectionLine } from '~/components/ConnectionLine';
 import { CryptoInput } from '~/components/CryptoInput';
 import { ExchangeButton } from '~/components/ExchangeButton';
 import { ReverseButton } from '~/components/ReverseButton';
+import type { CmcCoin } from '~/models/CmcCoin';
 import { CryptoExchangeStore } from '~/store/CryptoExchangeStore';
 import {
 	BottomBlockWrapper,
@@ -13,13 +14,27 @@ import {
 	Root,
 } from './CryptoExchange.styles';
 
-const CryptoExchange = () => {
-	const cryptoExchangeStore = useMemo(() => new CryptoExchangeStore(), []);
+interface Props {
+	coins: CmcCoin[];
+}
 
-	console.log({
-		sendCryptoObj: cryptoExchangeStore.sendCryptoObj.amount,
-		getCryptoObj: cryptoExchangeStore.getCryptoObj.amount,
-	});
+const CryptoExchange = (props: Props) => {
+	const { coins } = props;
+
+	const cryptoExchangeStore = useMemo(() => new CryptoExchangeStore(coins), [coins]);
+
+	// const { data: conversionRate } = useQuery({
+	// 	queryKey: ['conversionRate'],
+	// 	queryFn: async () => {
+	// 		const response = await axios.get(
+	// 			'https://namig.pro/api/conversion-rate?from=1&to=1027&fromAmount=3'
+	// 		);
+
+	// 		return response.data;
+	// 	},
+	// });
+
+	// console.log(conversionRate);
 
 	return (
 		<Root>

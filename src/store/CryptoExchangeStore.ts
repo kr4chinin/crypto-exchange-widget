@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import type { CmcCoin } from '~/models/CmcCoin';
 
 interface Cryptocurrency {
 	name: string;
@@ -19,29 +20,33 @@ const ethereumMock: Cryptocurrency = {
 };
 
 export class CryptoExchangeStore {
-	sendCryptoObj: Cryptocurrency = bitcoinMock;
-	getCryptoObj: Cryptocurrency = ethereumMock;
+	coins: CmcCoin[] = [];
 
-	constructor() {
+	from: Cryptocurrency = bitcoinMock;
+	to: Cryptocurrency = ethereumMock;
+
+	constructor(coins: CmcCoin[]) {
+		this.coins = coins;
+
 		makeAutoObservable(this);
 	}
 
 	setSendCryptoAmount = (amount: number): void => {
-		this.sendCryptoObj.amount = amount;
+		this.from.amount = amount;
 
 		// TODO: normal conversion
-		this.getCryptoObj.amount = this.sendCryptoObj.amount;
+		this.to.amount = this.from.amount;
 	};
 
 	setGetCryptoAmount = (amount: number): void => {
-		this.getCryptoObj.amount = amount;
+		this.to.amount = amount;
 
 		// TODO: normal conversion
-		this.sendCryptoObj.amount = this.getCryptoObj.amount;
+		this.from.amount = this.to.amount;
 	};
 
 	reverse = (): void => {
-		[this.sendCryptoObj, this.getCryptoObj] = [this.getCryptoObj, this.sendCryptoObj];
+		[this.from, this.to] = [this.to, this.from];
 	};
 
 	getExchangeRate = (): string => {

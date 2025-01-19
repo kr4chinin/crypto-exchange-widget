@@ -1,4 +1,6 @@
+import { Loader, Text } from '@mantine/core';
 import styled from 'styled-components';
+import { useGetCoins } from './api/CryptoExchangeApi/queries/useGetCoins';
 import { Overlay } from './components/Overlay';
 import { CryptoExchange } from './widgets/CryptoExchange/CryptoExchange';
 
@@ -16,11 +18,19 @@ const Root = styled.div`
 `;
 
 const App = () => {
+	const { data: coins, isLoading: areCoinsLoading, isError: isCoinsError } = useGetCoins();
+
 	return (
 		<Root>
 			<Overlay />
 
-			<CryptoExchange />
+			{areCoinsLoading ? (
+				<Loader size="xl" color="var(--color-gray-100)" type="dots" />
+			) : coins ? (
+				<CryptoExchange coins={coins} />
+			) : (
+				isCoinsError && <Text size="xl">💀 Something went wrong while fetching coins!</Text>
+			)}
 		</Root>
 	);
 };
