@@ -4,14 +4,17 @@ import type { CmcCoin } from '~/models/CmcCoin';
 export class CryptoExchangeStore {
 	coins: CmcCoin[] = [];
 
-	fromCoin: CmcCoin | null = this.coins[0] ?? null;
+	fromCoin: CmcCoin | null = null;
 	fromAmount: number = 0;
 
-	toCoin: CmcCoin | null = this.coins[1] ?? null;
+	toCoin: CmcCoin | null = null;
 	toAmount: number = 0;
 
 	constructor(coins: CmcCoin[]) {
 		this.coins = coins;
+
+		this.fromCoin = this.coins[0] ?? null;
+		this.toCoin = this.coins[1] ?? null;
 
 		makeAutoObservable(this);
 	}
@@ -33,7 +36,12 @@ export class CryptoExchangeStore {
 	};
 
 	reverse = (): void => {
-		[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
+		[this.fromCoin, this.toCoin, this.fromAmount, this.toAmount] = [
+			this.toCoin,
+			this.fromCoin,
+			this.toAmount,
+			this.fromAmount,
+		];
 	};
 
 	getExchangeRate = (): string => {

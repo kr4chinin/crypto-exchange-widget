@@ -33,20 +33,8 @@ const CryptoExchange = observer((props: Props) => {
 		setFromAmount,
 		setToCoin,
 		setToAmount,
+		reverse,
 	} = cryptoExchangeStore;
-
-	// const { data: conversionRate } = useQuery({
-	// 	queryKey: ['conversionRate'],
-	// 	queryFn: async () => {
-	// 		const response = await axios.get(
-	// 			'https://namig.pro/api/conversion-rate?from=1&to=1027&fromAmount=3'
-	// 		);
-
-	// 		return response.data;
-	// 	},
-	// });
-
-	// console.log(conversionRate);
 
 	return (
 		<Root>
@@ -66,7 +54,7 @@ const CryptoExchange = observer((props: Props) => {
 				<ConnectionLine $left="35%" />
 
 				<ReverseButtonWrapper>
-					<ReverseButton />
+					<ReverseButton onClick={reverse} />
 				</ReverseButtonWrapper>
 
 				<CryptoInput

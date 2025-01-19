@@ -1,6 +1,6 @@
 import { Box, Combobox, InputBase, ScrollArea, useCombobox } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
-import { type ChangeEventHandler, useCallback, useEffect, useState } from 'react';
+import { type ChangeEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import type { CmcCoin } from '~/models/CmcCoin';
 
@@ -29,14 +29,22 @@ const CryptoCombobox = observer((props: Props) => {
 	useEffect(() => {
 		// we need to wait for options to render before we can select first one
 		combobox.selectFirstOption();
+
+		// eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
+		setSearch(coin?.name || '');
 	}, [combobox, coin]);
 
-	const filteredOptions = coins.filter(i => {
-		const trimmedIncludes = (str: string) =>
-			str.toLowerCase().includes(search.toLowerCase().trim());
+	const filteredOptions = useMemo<CmcCoin[]>(() => {
+		const trimmedSearch = search.toLowerCase().trim();
 
-		return trimmedIncludes(i.name) || trimmedIncludes(i.symbol);
-	});
+		if (!trimmedSearch) return coins;
+
+		return coins.filter(i => {
+			const trimmedIncludes = (str: string) => str.toLowerCase().includes(trimmedSearch);
+
+			return trimmedIncludes(i.name) || trimmedIncludes(i.symbol);
+		}) as CmcCoin[];
+	}, [coins, search]);
 
 	const handleOptionSubmit = useCallback(
 		(id: string) => {
