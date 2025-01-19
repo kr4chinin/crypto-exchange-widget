@@ -30,8 +30,8 @@ export const ConnectionLine = styled.div<{ $left: CSSProperties['left'] }>`
 		height: 8px;
 
 		border-radius: 50%;
-		transform: translate(-50%, -50%);
 		background: #404040;
+		transform: translate(-50%, -50%);
 		box-shadow: 0 0 8px rgba(255, 255, 255, 0.12);
 	}
 
