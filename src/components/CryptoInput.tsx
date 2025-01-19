@@ -1,7 +1,7 @@
 import { CloseButton, NumberInput } from '@mantine/core';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { CryptoSelect } from './CryptoSelect';
+import { CryptoCombobox } from './CryptoCombobox';
 
 const Root = styled.div`
 	width: 100%;
@@ -57,7 +57,7 @@ const CryptoInput = (props: Props) => {
 				/>
 			</InputLabel>
 
-			<CryptoSelect />
+			<CryptoCombobox />
 		</Root>
 	);
 };
