@@ -1,4 +1,5 @@
 import { Text } from '@mantine/core';
+import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';
 import { ConnectionLine } from '~/components/ConnectionLine';
 import { CryptoInput } from '~/components/CryptoInput';
@@ -18,10 +19,12 @@ interface Props {
 	coins: CmcCoin[];
 }
 
-const CryptoExchange = (props: Props) => {
+const CryptoExchange = observer((props: Props) => {
 	const { coins } = props;
 
 	const cryptoExchangeStore = useMemo(() => new CryptoExchangeStore(coins), [coins]);
+
+	const { fromAmount, toAmount } = cryptoExchangeStore;
 
 	// const { data: conversionRate } = useQuery({
 	// 	queryKey: ['conversionRate'],
@@ -41,7 +44,11 @@ const CryptoExchange = (props: Props) => {
 			<Label>Crypto Exchange Widget</Label>
 
 			<ExchangeBlock>
-				<CryptoInput label="You Send" />
+				<CryptoInput
+					label="You Send"
+					amount={fromAmount}
+					setAmount={cryptoExchangeStore.setFromAmount}
+				/>
 
 				<ConnectionLine $left="30%" />
 				<ConnectionLine $left="35%" />
@@ -50,7 +57,11 @@ const CryptoExchange = (props: Props) => {
 					<ReverseButton />
 				</ReverseButtonWrapper>
 
-				<CryptoInput label="You Get" />
+				<CryptoInput
+					label="You Get"
+					amount={toAmount}
+					setAmount={cryptoExchangeStore.setToAmount}
+				/>
 
 				<BottomBlockWrapper>
 					<Text size="sm">📈 1 BTC = 0.001 ETH</Text>
@@ -60,6 +71,7 @@ const CryptoExchange = (props: Props) => {
 			</ExchangeBlock>
 		</Root>
 	);
-};
+});
 
+CryptoExchange.displayName = 'CryptoExchange';
 export { CryptoExchange };

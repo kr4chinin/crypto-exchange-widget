@@ -1,5 +1,6 @@
-import { CloseButton, NumberInput } from '@mantine/core';
-import { useState } from 'react';
+import { CloseButton, NumberInput, type NumberInputProps } from '@mantine/core';
+import { observer } from 'mobx-react-lite';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 import { CryptoCombobox } from './CryptoCombobox';
 
@@ -28,12 +29,19 @@ const StyledNumberInput = styled(NumberInput)`
 
 interface Props {
 	label: string;
+	amount: number;
+	setAmount: (amount: number) => void;
 }
 
-const CryptoInput = (props: Props) => {
-	const { label } = props;
+const CryptoInput = observer((props: Props) => {
+	const { label, amount, setAmount } = props;
 
-	const [value, setValue] = useState<number | string>('');
+	const handleChange = useCallback<NonNullable<NumberInputProps['onChange']>>(
+		value => {
+			typeof value === 'number' ? setAmount(value) : setAmount(parseFloat(value) ?? 0);
+		},
+		[setAmount]
+	);
 
 	return (
 		<Root>
@@ -42,24 +50,25 @@ const CryptoInput = (props: Props) => {
 
 				<StyledNumberInput
 					min={0}
-					value={value}
+					value={amount}
 					placeholder="0"
 					rightSectionWidth={40}
 					rightSection={
 						<CloseButton
 							variant="transparent"
 							aria-label="Clear input"
-							onClick={() => setValue('')}
-							style={{ display: value ? undefined : 'none' }}
+							onClick={() => setAmount(0)}
+							style={{ display: amount ? undefined : 'none' }}
 						/>
 					}
-					onChange={setValue}
+					onChange={handleChange}
 				/>
 			</InputLabel>
 
 			<CryptoCombobox />
 		</Root>
 	);
-};
+});
 
+CryptoInput.displayName = 'CryptoInput';
 export { CryptoInput };

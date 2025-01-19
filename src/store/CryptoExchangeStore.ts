@@ -1,29 +1,14 @@
 import { makeAutoObservable } from 'mobx';
 import type { CmcCoin } from '~/models/CmcCoin';
 
-interface Cryptocurrency {
-	name: string;
-	ticker: string;
-	amount: number;
-}
-
-const bitcoinMock: Cryptocurrency = {
-	name: 'Bitcoin',
-	ticker: 'BTC',
-	amount: 0,
-};
-
-const ethereumMock: Cryptocurrency = {
-	name: 'Ethereum',
-	ticker: 'ETH',
-	amount: 0,
-};
-
 export class CryptoExchangeStore {
 	coins: CmcCoin[] = [];
 
-	from: Cryptocurrency = bitcoinMock;
-	to: Cryptocurrency = ethereumMock;
+	fromCoin: CmcCoin | null = this.coins[0] ?? null;
+	fromAmount: number = 0;
+
+	toCoin: CmcCoin | null = this.coins[1] ?? null;
+	toAmount: number = 0;
 
 	constructor(coins: CmcCoin[]) {
 		this.coins = coins;
@@ -31,22 +16,16 @@ export class CryptoExchangeStore {
 		makeAutoObservable(this);
 	}
 
-	setSendCryptoAmount = (amount: number): void => {
-		this.from.amount = amount;
-
-		// TODO: normal conversion
-		this.to.amount = this.from.amount;
+	setFromAmount = (amount: number): void => {
+		this.fromAmount = amount;
 	};
 
-	setGetCryptoAmount = (amount: number): void => {
-		this.to.amount = amount;
-
-		// TODO: normal conversion
-		this.from.amount = this.to.amount;
+	setToAmount = (amount: number): void => {
+		this.toAmount = amount;
 	};
 
 	reverse = (): void => {
-		[this.from, this.to] = [this.to, this.from];
+		[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
 	};
 
 	getExchangeRate = (): string => {
