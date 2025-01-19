@@ -29,7 +29,7 @@ const CryptoExchange = () => {
 				<CryptoInput label="You Get" />
 
 				<BottomBlockWrapper>
-					<Text>1 BTC = 0.001 ETH</Text>
+					<Text size="sm">📈 1 BTC = 0.001 ETH</Text>
 
 					<ExchangeButton onClick={() => console.log('🚀 Exchange!')} />
 				</BottomBlockWrapper>
