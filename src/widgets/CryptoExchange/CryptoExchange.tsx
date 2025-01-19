@@ -24,7 +24,16 @@ const CryptoExchange = observer((props: Props) => {
 
 	const cryptoExchangeStore = useMemo(() => new CryptoExchangeStore(coins), [coins]);
 
-	const { fromAmount, toAmount } = cryptoExchangeStore;
+	const {
+		fromCoin,
+		fromAmount,
+		toCoin,
+		toAmount,
+		setFromCoin,
+		setFromAmount,
+		setToCoin,
+		setToAmount,
+	} = cryptoExchangeStore;
 
 	// const { data: conversionRate } = useQuery({
 	// 	queryKey: ['conversionRate'],
@@ -45,9 +54,12 @@ const CryptoExchange = observer((props: Props) => {
 
 			<ExchangeBlock>
 				<CryptoInput
+					coins={coins}
+					coin={fromCoin}
 					label="You Send"
 					amount={fromAmount}
-					setAmount={cryptoExchangeStore.setFromAmount}
+					setCoin={setFromCoin}
+					setAmount={setFromAmount}
 				/>
 
 				<ConnectionLine $left="30%" />
@@ -58,9 +70,12 @@ const CryptoExchange = observer((props: Props) => {
 				</ReverseButtonWrapper>
 
 				<CryptoInput
+					coins={coins}
+					coin={toCoin}
 					label="You Get"
 					amount={toAmount}
-					setAmount={cryptoExchangeStore.setToAmount}
+					setCoin={setToCoin}
+					setAmount={setToAmount}
 				/>
 
 				<BottomBlockWrapper>

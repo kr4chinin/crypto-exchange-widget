@@ -2,6 +2,7 @@ import { CloseButton, NumberInput, type NumberInputProps } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
 import { useCallback } from 'react';
 import styled from 'styled-components';
+import type { CmcCoin } from '~/models/CmcCoin';
 import { CryptoCombobox } from './CryptoCombobox';
 
 const Root = styled.div`
@@ -30,11 +31,14 @@ const StyledNumberInput = styled(NumberInput)`
 interface Props {
 	label: string;
 	amount: number;
+	coins: CmcCoin[];
+	coin: CmcCoin | null;
+	setCoin: (coin: CmcCoin) => void;
 	setAmount: (amount: number) => void;
 }
 
 const CryptoInput = observer((props: Props) => {
-	const { label, amount, setAmount } = props;
+	const { label, amount, coins, coin, setAmount, setCoin } = props;
 
 	const handleChange = useCallback<NonNullable<NumberInputProps['onChange']>>(
 		value => {
@@ -65,7 +69,7 @@ const CryptoInput = observer((props: Props) => {
 				/>
 			</InputLabel>
 
-			<CryptoCombobox />
+			<CryptoCombobox coins={coins} coin={coin} setCoin={setCoin} />
 		</Root>
 	);
 });

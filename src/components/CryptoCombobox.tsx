@@ -1,8 +1,8 @@
-import { Box, Combobox, InputBase, useCombobox } from '@mantine/core';
-import { type ChangeEventHandler, useCallback, useState } from 'react';
+import { Box, Combobox, InputBase, ScrollArea, useCombobox } from '@mantine/core';
+import { observer } from 'mobx-react-lite';
+import { type ChangeEventHandler, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-
-const cryptos = ['₿ Bitcoin', '💎 Ethereum', '🪙 XRP', '☀️ Solana', '🦷 Tron'];
+import type { CmcCoin } from '~/models/CmcCoin';
 
 const StyledComboboxTarget = styled(Combobox.Target)`
 	input {
@@ -11,27 +11,45 @@ const StyledComboboxTarget = styled(Combobox.Target)`
 	}
 `;
 
-const CryptoCombobox = () => {
+interface Props {
+	coins: CmcCoin[];
+	coin: CmcCoin | null;
+	setCoin: (coin: CmcCoin) => void;
+}
+
+const CryptoCombobox = observer((props: Props) => {
+	const { coins, coin, setCoin } = props;
+
 	const combobox = useCombobox({
 		onDropdownClose: () => combobox.resetSelectedOption(),
 	});
 
-	const [value, setValue] = useState<string | null>(null);
 	const [search, setSearch] = useState('');
 
-	const shouldFilterOptions = cryptos.every(i => i !== search);
-	const filteredOptions = shouldFilterOptions
-		? cryptos.filter(i => i.toLowerCase().includes(search.toLowerCase().trim()))
-		: cryptos;
+	useEffect(() => {
+		// we need to wait for options to render before we can select first one
+		combobox.selectFirstOption();
+	}, [combobox, coin]);
+
+	const filteredOptions = coins.filter(i => {
+		const trimmedIncludes = (str: string) =>
+			str.toLowerCase().includes(search.toLowerCase().trim());
+
+		return trimmedIncludes(i.name) || trimmedIncludes(i.symbol);
+	});
 
 	const handleOptionSubmit = useCallback(
-		(value: string) => {
-			setValue(value);
-			setSearch(value);
+		(id: string) => {
+			const coin = coins.find(i => String(i.id) === id);
+
+			if (!coin) throw new Error(`Coin with id ${id} was not found`);
+
+			setCoin(coin);
+			setSearch(coin.name);
 
 			combobox.closeDropdown();
 		},
-		[combobox]
+		[combobox, coins, setCoin]
 	);
 
 	const handleChangeSearch = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -51,8 +69,8 @@ const CryptoCombobox = () => {
 	const handleBlur = useCallback(() => {
 		combobox.closeDropdown();
 
-		setSearch(value || '');
-	}, [combobox, value]);
+		setSearch(coin?.name || '');
+	}, [combobox, coin]);
 
 	return (
 		<Box pos="relative">
@@ -70,22 +88,25 @@ const CryptoCombobox = () => {
 					/>
 				</StyledComboboxTarget>
 
-				<Combobox.Dropdown className="combobox">
-					<Combobox.Options>
-						{filteredOptions.length > 0 ? (
-							filteredOptions.map(i => (
-								<Combobox.Option value={i} key={i}>
-									{i}
-								</Combobox.Option>
-							))
-						) : (
-							<Combobox.Empty>Nothing found...</Combobox.Empty>
-						)}
-					</Combobox.Options>
+				<Combobox.Dropdown className="combobox-dropdown">
+					<ScrollArea.Autosize mah={320} type="scroll">
+						<Combobox.Options>
+							{filteredOptions.length > 0 ? (
+								filteredOptions.map(o => (
+									<Combobox.Option value={String(o.id)} key={o.id}>
+										{o.name} / {o.symbol}
+									</Combobox.Option>
+								))
+							) : (
+								<Combobox.Empty>Nothing found...</Combobox.Empty>
+							)}
+						</Combobox.Options>
+					</ScrollArea.Autosize>
 				</Combobox.Dropdown>
 			</Combobox>
 		</Box>
 	);
-};
+});
 
+CryptoCombobox.displayName = 'CryptoCombobox';
 export { CryptoCombobox };

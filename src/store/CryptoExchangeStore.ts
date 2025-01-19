@@ -24,6 +24,14 @@ export class CryptoExchangeStore {
 		this.toAmount = amount;
 	};
 
+	setToCoin = (coin: CmcCoin): void => {
+		this.toCoin = coin;
+	};
+
+	setFromCoin = (coin: CmcCoin): void => {
+		this.fromCoin = coin;
+	};
+
 	reverse = (): void => {
 		[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
 	};
