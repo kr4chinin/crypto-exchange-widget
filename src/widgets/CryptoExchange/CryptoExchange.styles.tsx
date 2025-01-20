@@ -78,7 +78,7 @@ export const ReverseButtonWrapper = styled.div`
 	margin: 16px 0 0 auto;
 `;
 
-export const BottomBlockWrapper = styled.div`
+export const ConversionInfoBlock = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

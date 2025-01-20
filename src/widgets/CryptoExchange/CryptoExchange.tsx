@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core';
+import { Box, Skeleton, Text } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';
 import { ConnectionLine } from '~/components/ConnectionLine';
@@ -8,7 +8,7 @@ import { ReverseButton } from '~/components/ReverseButton';
 import type { CmcCoin } from '~/models/CmcCoin';
 import { CryptoExchangeStore } from '~/store/CryptoExchangeStore';
 import {
-	BottomBlockWrapper,
+	ConversionInfoBlock,
 	ExchangeBlock,
 	Label,
 	ReverseButtonWrapper,
@@ -70,23 +70,29 @@ const CryptoExchange = observer((props: Props) => {
 					setAmount={setToAmount}
 				/>
 
-				<BottomBlockWrapper>
-					{isLoading && <Text size="sm">Loading...</Text>}
+				<ConversionInfoBlock>
+					<Box>
+						{isLoading && <Skeleton w={200} h={20} />}
 
-					{error && (
-						<Text size="sm" c="red">
-							{error}
-						</Text>
-					)}
+						{error && (
+							<Text size="sm" c="red">
+								{error}
+							</Text>
+						)}
 
-					{!isLoading && !error && conversion && (
-						<Text size="sm">
-							📈 1 {fromCoin?.symbol} = {conversion.rate.toFixed(6)} {toCoin?.symbol}
-						</Text>
-					)}
+						{!isLoading && !error && conversion && (
+							<Text size="sm">
+								🔄 1 {fromCoin?.symbol} = {conversion.rate.toFixed(6)} {toCoin?.symbol}
+							</Text>
+						)}
+					</Box>
 
-					<ExchangeButton onClick={exchange} disabled={isLoading || !!error || !conversion} />
-				</BottomBlockWrapper>
+					<ExchangeButton
+						loading={isLoading}
+						disabled={Boolean(error || !conversion)}
+						onClick={exchange}
+					/>
+				</ConversionInfoBlock>
 			</ExchangeBlock>
 		</Root>
 	);
