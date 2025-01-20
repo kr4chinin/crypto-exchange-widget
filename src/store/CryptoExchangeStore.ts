@@ -18,7 +18,7 @@ export class CryptoExchangeStore {
 	toAmount: number = 0;
 
 	conversion: ConversionResponse | null = null;
-	error: string | null = null;
+	conversionError: string | null = null;
 
 	isLoading = false;
 
@@ -95,7 +95,7 @@ export class CryptoExchangeStore {
 			}
 
 			this.isLoading = true;
-			this.error = null;
+			this.conversionError = null;
 
 			const response = await cryptoExchangeApi.getConversion({
 				from: direction === 'from' ? this.fromCoin.id : this.toCoin.id,
@@ -115,7 +115,7 @@ export class CryptoExchangeStore {
 		} catch (e) {
 			runInAction(() => {
 				const errorMsg = '🚨 Error fetching conversion rate!';
-				this.error = '🚨 Error fetching conversion rate!';
+				this.conversionError = '🚨 Error fetching conversion rate!';
 
 				toast.error(errorMsg);
 

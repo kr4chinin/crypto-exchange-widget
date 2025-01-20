@@ -25,7 +25,6 @@ const CryptoExchange = observer((props: Props) => {
 	const cryptoExchangeStore = useMemo(() => new CryptoExchangeStore(coins), [coins]);
 
 	const {
-		error,
 		toCoin,
 		fromCoin,
 		toAmount,
@@ -34,6 +33,7 @@ const CryptoExchange = observer((props: Props) => {
 		conversion,
 		isLoadingTo,
 		isLoadingFrom,
+		conversionError,
 		reverse,
 		exchange,
 		setToCoin,
@@ -80,13 +80,13 @@ const CryptoExchange = observer((props: Props) => {
 					<Box>
 						{isLoading && <Skeleton w={200} h={20} />}
 
-						{error && (
+						{conversionError && (
 							<Text size="sm" c="red">
-								{error}
+								{conversionError}
 							</Text>
 						)}
 
-						{!isLoading && !error && conversion && (
+						{!isLoading && !conversionError && conversion && (
 							<Text size="sm">
 								🔄 1 {fromCoin?.symbol} = {conversion.rate.toFixed(6)} {toCoin?.symbol}
 							</Text>
@@ -95,7 +95,7 @@ const CryptoExchange = observer((props: Props) => {
 
 					<ExchangeButton
 						loading={isLoading}
-						disabled={Boolean(error || !conversion)}
+						disabled={Boolean(conversionError || !conversion)}
 						onClick={exchange}
 					/>
 				</ConversionInfoBlock>
