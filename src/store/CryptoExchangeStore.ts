@@ -54,6 +54,8 @@ export class CryptoExchangeStore {
 	};
 
 	reverse = (): void => {
+		if (this.fromCoin && this.toCoin && this.fromAmount > 0) this.isLoading = true;
+
 		[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
 		[this.fromAmount, this.toAmount] = [this.toAmount, this.fromAmount];
 
