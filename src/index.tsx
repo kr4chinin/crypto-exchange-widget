@@ -4,6 +4,7 @@ import { MantineProvider } from '@mantine/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
+import { Toaster } from 'react-hot-toast';
 import { App } from './App';
 import { ErrorFallback } from './components/ErrorFallback';
 
@@ -17,6 +18,7 @@ root.render(
 		<MantineProvider defaultColorScheme="dark">
 			<ErrorBoundary fallback={<ErrorFallback />}>
 				<App />
+				<Toaster position="top-right" />
 			</ErrorBoundary>
 		</MantineProvider>
 	</QueryClientProvider>
