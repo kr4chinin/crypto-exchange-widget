@@ -83,5 +83,5 @@ export const ConversionInfoBlock = styled.div`
 	justify-content: space-between;
 	align-items: center;
 
-	margin-top: 32px;
+	margin-top: 24px;
 `;
