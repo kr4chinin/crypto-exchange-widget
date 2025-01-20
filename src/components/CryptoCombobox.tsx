@@ -107,7 +107,7 @@ const CryptoCombobox = observer((props: Props) => {
 									</Combobox.Option>
 								))
 							) : (
-								<Combobox.Empty>Nothing found...</Combobox.Empty>
+								<Combobox.Empty>🔎 Nothing found...</Combobox.Empty>
 							)}
 						</Combobox.Options>
 					</ScrollArea.Autosize>
