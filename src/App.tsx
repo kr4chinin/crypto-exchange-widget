@@ -2,6 +2,7 @@ import { Loader, Text } from '@mantine/core';
 import styled from 'styled-components';
 import { useGetCoins } from './api/CryptoExchangeApi/queries/useGetCoins';
 import { Overlay } from './components/Overlay';
+import { useLimitMaxToasts } from './hooks/useLimitMaxToasts';
 import { CryptoExchange } from './widgets/CryptoExchange/CryptoExchange';
 
 const Root = styled.div`
@@ -19,6 +20,8 @@ const Root = styled.div`
 
 const App = () => {
 	const { data: coins, isLoading: areCoinsLoading, isError: isCoinsError } = useGetCoins();
+
+	useLimitMaxToasts();
 
 	return (
 		<Root>

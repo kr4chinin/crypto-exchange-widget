@@ -1,5 +1,6 @@
 import { debounce } from 'lodash';
 import { makeAutoObservable, runInAction } from 'mobx';
+import toast from 'react-hot-toast';
 import { cryptoExchangeApi } from '~/api/CryptoExchangeApi/CryptoExchangeApi';
 import type { CmcCoin } from '~/models/CmcCoin';
 import type { ConversionResponse } from '~/models/ConversionResponse';
@@ -113,7 +114,12 @@ export class CryptoExchangeStore {
 			});
 		} catch (e) {
 			runInAction(() => {
+				const errorMsg = '🚨 Error fetching conversion rate!';
 				this.error = '🚨 Error fetching conversion rate!';
+
+				toast.error(errorMsg);
+
+				console.error(e);
 			});
 		} finally {
 			runInAction(() => {
@@ -127,11 +133,11 @@ export class CryptoExchangeStore {
 
 	exchange = (): void => {
 		if (this.fromAmount && this.toAmount && this.fromCoin && this.toCoin) {
-			console.log(
-				`🚀 Exchange $${this.fromCoin?.symbol} (${this.fromAmount}) to $${this.toCoin?.symbol} (${this.toAmount})`
+			toast.success(
+				`Exchange $${this.fromCoin?.symbol} (${this.fromAmount.toFixed(2)}) to $${this.toCoin?.symbol} (${this.toAmount.toFixed(2)})`
 			);
 		} else {
-			console.error('❌ Failed to exchange! Not all necessary data is provided.');
+			toast.error('❌ Failed to exchange! Not all necessary data is provided.');
 		}
 	};
 }
