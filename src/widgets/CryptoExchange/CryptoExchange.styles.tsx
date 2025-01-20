@@ -74,7 +74,9 @@ export const ExchangeBlock = styled.div`
 	}
 
 	@media (max-width: 768px) {
-		width: 380px;
+		width: 358px;
+
+		padding: 16px;
 	}
 `;
 

@@ -60,7 +60,7 @@ const CryptoInput = observer((props: Props) => {
 	return (
 		<Root>
 			<InputLabel>
-				<LabelWrapper>{loading ? <Skeleton h={20} w={100} /> : <Text>{label}</Text>}</LabelWrapper>
+				<LabelWrapper>{loading ? <Skeleton h={20} w={80} /> : <Text>{label}</Text>}</LabelWrapper>
 
 				<StyledNumberInput
 					min={0}
