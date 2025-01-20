@@ -81,7 +81,7 @@ body.main-gradient {
 .combobox-dropdown {
 	width: 380px !important;
 
-  @media (max-width: 768px) {
-    width: 240px !important;
-  }
+	@media (max-width: 768px) {
+		width: 240px !important;
+	}
 }
