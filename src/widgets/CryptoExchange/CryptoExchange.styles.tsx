@@ -25,7 +25,7 @@ export const Label = styled.h1`
 export const ExchangeBlock = styled.div`
 	position: relative;
 
-	width: 450px;
+	width: 520px;
 	height: 310px;
 
 	display: flex;
