@@ -46,15 +46,25 @@ export class CryptoExchangeStore {
 	};
 
 	setFromCoin = (coin: CmcCoin): void => {
+		if (this.fromCoin && this.toCoin) {
+			this.isLoading = true;
+			this.isLoadingTo = true;
+		}
+
 		this.fromCoin = coin;
 
-		if (this.fromAmount > 0) this._debouncedGetConversion('from');
+		this._debouncedGetConversion('from');
 	};
 
 	setToCoin = (coin: CmcCoin): void => {
+		if (this.fromCoin && this.toCoin) {
+			this.isLoading = true;
+			this.isLoadingFrom = true;
+		}
+
 		this.toCoin = coin;
 
-		if (this.fromAmount > 0) this._debouncedGetConversion('from');
+		this._debouncedGetConversion('to');
 	};
 
 	reverse = (): void => {
@@ -66,7 +76,7 @@ export class CryptoExchangeStore {
 		[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
 		[this.fromAmount, this.toAmount] = [this.toAmount, this.fromAmount];
 
-		if (this.fromAmount > 0) this._debouncedGetConversion('from');
+		this._debouncedGetConversion('from');
 	};
 
 	private _debouncedGetConversion = debounce((direction: ConversionDirection) => {
