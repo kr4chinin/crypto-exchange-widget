@@ -20,21 +20,22 @@ interface Props {
 const CryptoCombobox = observer((props: Props) => {
 	const { coins, coin, setCoin } = props;
 
+	const [search, setSearch] = useState<string>(coin?.symbol || '');
+
 	const combobox = useCombobox({
-		onDropdownClose: () => combobox.resetSelectedOption(),
+		onDropdownClose: () => {
+			combobox.resetSelectedOption();
+
+			setSearch(coin?.symbol || '');
+		},
 	});
 
-	const [search, setSearch] = useState('');
-
 	useEffect(() => {
-		// we need to wait for options to render before we can select first one
-		combobox.selectFirstOption();
-
 		// eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
-		setSearch(coin?.name || '');
-	}, [combobox, coin]);
+		if (coin) setSearch(coin.symbol);
+	}, [coin]);
 
-	const filteredOptions = useMemo<CmcCoin[]>(() => {
+	const filteredOptions = useMemo(() => {
 		const trimmedSearch = search.toLowerCase().trim();
 
 		if (!trimmedSearch) return coins;
@@ -43,42 +44,36 @@ const CryptoCombobox = observer((props: Props) => {
 			const trimmedIncludes = (str: string) => str.toLowerCase().includes(trimmedSearch);
 
 			return trimmedIncludes(i.name) || trimmedIncludes(i.symbol);
-		}) as CmcCoin[];
+		});
 	}, [coins, search]);
 
 	const handleOptionSubmit = useCallback(
 		(id: string) => {
-			const coin = coins.find(i => String(i.id) === id);
+			const selectedCoin = coins.find(i => String(i.id) === id);
 
-			if (!coin) throw new Error(`Coin with id ${id} was not found`);
+			if (!selectedCoin) throw new Error(`Coin with id ${id} was not found`);
 
-			setCoin(coin);
-			setSearch(coin.name);
+			setCoin(selectedCoin);
+			setSearch(selectedCoin.symbol);
 
 			combobox.closeDropdown();
 		},
 		[combobox, coins, setCoin]
 	);
 
-	const handleChangeSearch = useCallback<ChangeEventHandler<HTMLInputElement>>(
+	const handleChangeSearch: ChangeEventHandler<HTMLInputElement> = useCallback(
 		e => {
+			const value = e.currentTarget.value;
+
+			setSearch(value);
+
 			combobox.openDropdown();
 			combobox.updateSelectedOptionIndex();
-
-			setSearch(e.currentTarget.value);
 		},
 		[combobox]
 	);
 
-	const handleClick = useCallback(() => combobox.openDropdown(), [combobox]);
-
 	const handleFocus = useCallback(() => combobox.openDropdown(), [combobox]);
-
-	const handleBlur = useCallback(() => {
-		combobox.closeDropdown();
-
-		setSearch(coin?.name || '');
-	}, [combobox, coin]);
 
 	return (
 		<Box pos="relative">
@@ -86,13 +81,11 @@ const CryptoCombobox = observer((props: Props) => {
 				<StyledComboboxTarget>
 					<InputBase
 						value={search}
-						placeholder="Search value"
+						placeholder="Search coin"
 						rightSectionPointerEvents="none"
 						rightSection={<Combobox.Chevron />}
-						onBlur={handleBlur}
-						onClick={handleClick}
-						onFocus={handleFocus}
 						onChange={handleChangeSearch}
+						onFocus={handleFocus}
 					/>
 				</StyledComboboxTarget>
 

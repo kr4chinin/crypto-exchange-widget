@@ -34,6 +34,10 @@ const CryptoExchange = observer((props: Props) => {
 		setToCoin,
 		setToAmount,
 		reverse,
+		exchange,
+		isLoading,
+		conversion,
+		error,
 	} = cryptoExchangeStore;
 
 	return (
@@ -67,9 +71,21 @@ const CryptoExchange = observer((props: Props) => {
 				/>
 
 				<BottomBlockWrapper>
-					<Text size="sm">📈 1 BTC = 0.001 ETH</Text>
+					{isLoading && <Text size="sm">Loading...</Text>}
 
-					<ExchangeButton onClick={cryptoExchangeStore.exchange} />
+					{error && (
+						<Text size="sm" c="red">
+							{error}
+						</Text>
+					)}
+
+					{!isLoading && !error && conversion && (
+						<Text size="sm">
+							📈 1 {fromCoin?.symbol} = {conversion.rate.toFixed(6)} {toCoin?.symbol}
+						</Text>
+					)}
+
+					<ExchangeButton onClick={exchange} disabled={isLoading || !!error || !conversion} />
 				</BottomBlockWrapper>
 			</ExchangeBlock>
 		</Root>
