@@ -17,8 +17,12 @@ export class CryptoExchangeStore {
 	toAmount: number = 0;
 
 	conversion: ConversionResponse | null = null;
-	isLoading = false;
 	error: string | null = null;
+
+	isLoading = false;
+
+	isLoadingFrom = false;
+	isLoadingTo = false;
 
 	constructor(coins: CmcCoin[]) {
 		this.coins = coins;
@@ -54,7 +58,10 @@ export class CryptoExchangeStore {
 	};
 
 	reverse = (): void => {
-		if (this.fromCoin && this.toCoin && this.fromAmount > 0) this.isLoading = true;
+		if (this.fromCoin && this.toCoin) {
+			this.isLoading = true;
+			this.isLoadingTo = true;
+		}
 
 		[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
 		[this.fromAmount, this.toAmount] = [this.toAmount, this.fromAmount];
@@ -67,31 +74,31 @@ export class CryptoExchangeStore {
 	}, CONVERSION_DEBOUNCE_MS);
 
 	private _getConversion = async (direction: ConversionDirection): Promise<void> => {
-		if (
-			!this.fromCoin ||
-			!this.toCoin ||
-			(direction === 'from' ? this.fromAmount <= 0 : this.toAmount <= 0)
-		)
-			return;
+		if (!this.fromCoin || !this.toCoin) return;
 
 		try {
+			if (direction === 'from') {
+				this.isLoadingTo = true;
+			} else {
+				this.isLoadingFrom = true;
+			}
+
 			this.isLoading = true;
 			this.error = null;
 
 			const response = await cryptoExchangeApi.getConversion({
 				from: direction === 'from' ? this.fromCoin.id : this.toCoin.id,
 				to: direction === 'from' ? this.toCoin.id : this.fromCoin.id,
-				[direction === 'from' ? 'fromAmount' : 'toAmount']:
-					direction === 'from' ? this.fromAmount : this.toAmount,
+				fromAmount: direction === 'from' ? this.fromAmount : this.toAmount,
 			});
 
 			runInAction(() => {
 				this.conversion = response;
 
 				if (direction === 'from') {
-					this.toAmount = response.estimatedAmount;
+					this.toAmount = response.estimatedAmount ?? 0;
 				} else {
-					this.fromAmount = response.estimatedAmount;
+					this.fromAmount = response.estimatedAmount ?? 0;
 				}
 			});
 		} catch (e) {
@@ -101,6 +108,9 @@ export class CryptoExchangeStore {
 		} finally {
 			runInAction(() => {
 				this.isLoading = false;
+
+				this.isLoadingFrom = false;
+				this.isLoadingTo = false;
 			});
 		}
 	};

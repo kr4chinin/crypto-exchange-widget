@@ -25,19 +25,21 @@ const CryptoExchange = observer((props: Props) => {
 	const cryptoExchangeStore = useMemo(() => new CryptoExchangeStore(coins), [coins]);
 
 	const {
-		fromCoin,
-		fromAmount,
+		error,
 		toCoin,
+		fromCoin,
 		toAmount,
-		setFromCoin,
-		setFromAmount,
-		setToCoin,
-		setToAmount,
+		isLoading,
+		fromAmount,
+		conversion,
+		isLoadingTo,
+		isLoadingFrom,
 		reverse,
 		exchange,
-		isLoading,
-		conversion,
-		error,
+		setToCoin,
+		setFromCoin,
+		setToAmount,
+		setFromAmount,
 	} = cryptoExchangeStore;
 
 	return (
@@ -45,11 +47,13 @@ const CryptoExchange = observer((props: Props) => {
 			<Label>Crypto Exchange Widget</Label>
 
 			<ExchangeBlock>
+				{/* From input */}
 				<CryptoInput
 					coins={coins}
 					coin={fromCoin}
 					label="You Send"
 					amount={fromAmount}
+					loading={isLoadingFrom}
 					setCoin={setFromCoin}
 					setAmount={setFromAmount}
 				/>
@@ -61,11 +65,13 @@ const CryptoExchange = observer((props: Props) => {
 					<ReverseButton onClick={reverse} />
 				</ReverseButtonWrapper>
 
+				{/* To input */}
 				<CryptoInput
 					coins={coins}
 					coin={toCoin}
 					label="You Get"
 					amount={toAmount}
+					loading={isLoadingTo}
 					setCoin={setToCoin}
 					setAmount={setToAmount}
 				/>

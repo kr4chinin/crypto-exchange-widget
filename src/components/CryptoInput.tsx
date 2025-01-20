@@ -32,13 +32,14 @@ interface Props {
 	label: string;
 	amount: number;
 	coins: CmcCoin[];
+	loading: boolean;
 	coin: CmcCoin | null;
 	setCoin: (coin: CmcCoin) => void;
 	setAmount: (amount: number) => void;
 }
 
 const CryptoInput = observer((props: Props) => {
-	const { label, amount, coins, coin, setAmount, setCoin } = props;
+	const { label, amount, coins, loading, coin, setAmount, setCoin } = props;
 
 	const handleChange = useCallback<NonNullable<NumberInputProps['onChange']>>(
 		value => {
@@ -47,22 +48,28 @@ const CryptoInput = observer((props: Props) => {
 		[setAmount]
 	);
 
+	const handleClear = useCallback(() => setAmount(0), [setAmount]);
+
 	return (
 		<Root>
 			<InputLabel>
-				{label}
+				{loading ? <i>Loading...</i> : label}
 
 				<StyledNumberInput
 					min={0}
+					allowDecimal
 					value={amount}
 					placeholder="0"
+					disabled={loading}
+					allowNegative={false}
 					rightSectionWidth={40}
+					allowLeadingZeros={false}
 					rightSection={
 						<CloseButton
 							variant="transparent"
 							aria-label="Clear input"
-							onClick={() => setAmount(0)}
 							style={{ display: amount ? undefined : 'none' }}
+							onClick={handleClear}
 						/>
 					}
 					onChange={handleChange}
