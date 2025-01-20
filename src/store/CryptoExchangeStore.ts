@@ -92,7 +92,7 @@ export class CryptoExchangeStore {
 					this.fromAmount = response.estimatedAmount;
 				}
 			});
-		} catch (error) {
+		} catch (e) {
 			runInAction(() => {
 				this.error = '🚨 Error fetching conversion rate!';
 			});
