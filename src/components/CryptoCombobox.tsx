@@ -79,9 +79,10 @@ const CryptoCombobox = observer((props: Props) => {
 	return (
 		<Box pos="relative">
 			<Combobox
+				withinPortal
 				store={combobox}
 				disabled={disabled}
-				withinPortal={false}
+				position="bottom-start"
 				onOptionSubmit={handleOptionSubmit}
 			>
 				<StyledComboboxTarget>
