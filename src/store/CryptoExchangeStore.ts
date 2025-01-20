@@ -72,12 +72,14 @@ export class CryptoExchangeStore {
 		if (this.fromCoin && this.toCoin) {
 			this.isLoading = true;
 			this.isLoadingTo = true;
+
+			[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
+			[this.fromAmount, this.toAmount] = [this.toAmount, this.fromAmount];
+
+			this._debouncedGetConversion('from');
+		} else {
+			toast.error('Two coins should be selected!');
 		}
-
-		[this.fromCoin, this.toCoin] = [this.toCoin, this.fromCoin];
-		[this.fromAmount, this.toAmount] = [this.toAmount, this.fromAmount];
-
-		this._debouncedGetConversion('from');
 	};
 
 	private _debouncedGetConversion = debounce((direction: ConversionDirection) => {
