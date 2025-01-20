@@ -5,7 +5,7 @@ import type { CmcCoin } from '~/models/CmcCoin';
 import type { ConversionResponse } from '~/models/ConversionResponse';
 import type { ConversionDirection } from '~/types/ConversionDirection';
 
-const CONVERSION_DEBOUNCE_MS = 250;
+const CONVERSION_DEBOUNCE_MS = 300;
 
 export class CryptoExchangeStore {
 	coins: CmcCoin[] = [];
