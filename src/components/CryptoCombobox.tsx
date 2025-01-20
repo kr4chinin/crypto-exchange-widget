@@ -14,11 +14,12 @@ const StyledComboboxTarget = styled(Combobox.Target)`
 interface Props {
 	coins: CmcCoin[];
 	coin: CmcCoin | null;
+	disabled?: boolean;
 	setCoin: (coin: CmcCoin) => void;
 }
 
 const CryptoCombobox = observer((props: Props) => {
-	const { coins, coin, setCoin } = props;
+	const { coins, coin, disabled, setCoin } = props;
 
 	const [search, setSearch] = useState<string>(coin?.symbol || '');
 
@@ -77,10 +78,16 @@ const CryptoCombobox = observer((props: Props) => {
 
 	return (
 		<Box pos="relative">
-			<Combobox store={combobox} withinPortal={false} onOptionSubmit={handleOptionSubmit}>
+			<Combobox
+				store={combobox}
+				disabled={disabled}
+				withinPortal={false}
+				onOptionSubmit={handleOptionSubmit}
+			>
 				<StyledComboboxTarget>
 					<InputBase
 						value={search}
+						disabled={disabled}
 						placeholder="Search coin"
 						rightSectionPointerEvents="none"
 						rightSection={<Combobox.Chevron />}

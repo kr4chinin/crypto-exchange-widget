@@ -1,4 +1,4 @@
-import { CloseButton, NumberInput, type NumberInputProps } from '@mantine/core';
+import { CloseButton, NumberInput, Skeleton, Text, type NumberInputProps } from '@mantine/core';
 import { observer } from 'mobx-react-lite';
 import { useCallback } from 'react';
 import styled from 'styled-components';
@@ -17,7 +17,14 @@ const InputLabel = styled.label`
 
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 6px;
+`;
+
+const LabelWrapper = styled.div`
+	height: 24px;
+
+	display: flex;
+	align-items: center;
 `;
 
 const StyledNumberInput = styled(NumberInput)`
@@ -43,7 +50,7 @@ const CryptoInput = observer((props: Props) => {
 
 	const handleChange = useCallback<NonNullable<NumberInputProps['onChange']>>(
 		value => {
-			typeof value === 'number' ? setAmount(value) : setAmount(parseFloat(value) ?? 0);
+			typeof value === 'number' ? setAmount(value) : setAmount(parseFloat(value) || 0);
 		},
 		[setAmount]
 	);
@@ -53,7 +60,7 @@ const CryptoInput = observer((props: Props) => {
 	return (
 		<Root>
 			<InputLabel>
-				{loading ? <i>Loading...</i> : label}
+				<LabelWrapper>{loading ? <Skeleton h={20} w={100} /> : <Text>{label}</Text>}</LabelWrapper>
 
 				<StyledNumberInput
 					min={0}
@@ -76,7 +83,7 @@ const CryptoInput = observer((props: Props) => {
 				/>
 			</InputLabel>
 
-			<CryptoCombobox coins={coins} coin={coin} setCoin={setCoin} />
+			<CryptoCombobox disabled={loading} coins={coins} coin={coin} setCoin={setCoin} />
 		</Root>
 	);
 });

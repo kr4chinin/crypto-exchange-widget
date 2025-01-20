@@ -58,8 +58,8 @@ const CryptoExchange = observer((props: Props) => {
 					setAmount={setFromAmount}
 				/>
 
-				<ConnectionLine $left="30%" />
-				<ConnectionLine $left="35%" />
+				<ConnectionLine $left="32%" />
+				<ConnectionLine $left="38%" />
 
 				<ReverseButtonWrapper>
 					<ReverseButton onClick={reverse} />

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 export const ConnectionLine = styled.div<{ $left: CSSProperties['left'] }>`
 	position: absolute;
-	top: 78px;
+	top: 82px;
 	left: ${p => p.$left};
-	bottom: 150px;
+	bottom: 144px;
 
 	z-index: 3;
 
