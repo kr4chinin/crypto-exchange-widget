@@ -72,6 +72,10 @@ export const ExchangeBlock = styled.div`
 		border-radius: 0 0 16px 16px;
 		opacity: 0.8;
 	}
+
+	@media (max-width: 768px) {
+		width: 380px;
+	}
 `;
 
 export const ReverseButtonWrapper = styled.div`
