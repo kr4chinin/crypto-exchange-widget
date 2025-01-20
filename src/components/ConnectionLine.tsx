@@ -1,5 +1,15 @@
 import type { CSSProperties } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const flow = keyframes`
+  0% {
+    background-position: 0 0;
+  }
+  
+  100% {
+    background-position: 0 12px;
+  }
+`;
 
 export const ConnectionLine = styled.div<{ $left: CSSProperties['left'] }>`
 	position: absolute;
@@ -18,7 +28,9 @@ export const ConnectionLine = styled.div<{ $left: CSSProperties['left'] }>`
 		transparent 6px,
 		transparent 12px
 	);
+	background-size: 100% 12px;
 	box-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+	animation: ${flow} 1s linear infinite;
 
 	&::before,
 	&::after {
