@@ -18,17 +18,17 @@ npm start
 
 ### Main functionality
 
-[x] Exchange form with input fields for source and target currency amounts
-[x] Ability to select source and target currency pairs from available cryptocurrencies
-[x] Display of current exchange rate
-[x] Automatic amount calculation when entering values in any of the fields
+- [x] Exchange form with input fields for source and target currency amounts
+- [x] Ability to select source and target currency pairs from available cryptocurrencies
+- [x] Display of current exchange rate
+- [x] Automatic amount calculation when entering values in any of the fields
 
 ### Additional features
 
-[x] Search by cryptocurrency name and symbol in the currency dropdown list
-[x] Validation of entered values, only positive numbers allowed
-[x] Loading spinner when receiving rates in each of the numeric inputs
-[x] Reverse button that swaps cryptocurrencies when clicked
+- [x] Search by cryptocurrency name and symbol in the currency dropdown list
+- [x] Validation of entered values, only positive numbers allowed
+- [x] Loading spinner when receiving rates in each of the numeric inputs
+- [x] Reverse button that swaps cryptocurrencies when clicked
 
 ## Technical requirements
 
