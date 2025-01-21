@@ -7,6 +7,9 @@ This repo represents a technical assignment which requires to create a basic cry
 `VITE_BASE_API_URL` environment variable is required to run the application. Should be specified in the `.env` or `.env.local` file/s in the root directory.
 
 ```bash
+# Clone the repo to an empty directory
+gh repo clone kr4chinin/crypto-exchange-widget .
+
 # Install dependencies
 npm install
 
