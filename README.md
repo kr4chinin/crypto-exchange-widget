@@ -48,5 +48,3 @@ npm start
 - styled-components
 
 <img width="634" alt="widget" src="https://github.com/user-attachments/assets/96afde29-e223-482f-85a1-b25a0f2794e1" />
-
-

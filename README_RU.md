@@ -2,6 +2,8 @@
 
 [🇺🇸 EN](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README.md) | [🇷🇺 RU](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README_RU.md)
 
+![widget-demo](https://github.com/user-attachments/assets/5452aff0-8094-44fb-bba9-076c45183e27)
+
 Данный репозиторий представляет собой техническое задание на разработку базового виджета обмена криптовалют. Виджет поддерживает более 200 реальных криптовалют с актуальными обменными курсами. Работает в обоих направлениях с возможностью реверса обмена.
 
 ## Запуск приложения
@@ -44,3 +46,5 @@ npm start
 - Mantine
 - Mobx
 - styled-components
+
+<img width="634" alt="widget" src="https://github.com/user-attachments/assets/96afde29-e223-482f-85a1-b25a0f2794e1" />
