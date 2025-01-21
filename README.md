@@ -2,7 +2,7 @@
 
 [🇺🇸 EN](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README.md) | [🇷🇺 RU](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README_RU.md)
 
-[Ссылка на деплой 🔗](https://crypto-exchange-widget.vercel.app/)
+[Deployment Link 🔗](https://crypto-exchange-widget.vercel.app/)
 
 This repo represents a technical assignment which requires to create a basic crypto exchange widget. This widget feature over 200 real cryptocurrencies and real exchange rates. Works both ways and has an ability to reverse the exchange.
 

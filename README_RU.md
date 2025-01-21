@@ -2,7 +2,7 @@
 
 [🇺🇸 EN](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README.md) | [🇷🇺 RU](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README_RU.md)
 
-[Deployment Link 🔗](https://crypto-exchange-widget.vercel.app/)
+[Ссылка на деплой 🔗](https://crypto-exchange-widget.vercel.app/)
 
 ![widget-demo](https://github.com/user-attachments/assets/5452aff0-8094-44fb-bba9-076c45183e27)
 
