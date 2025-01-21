@@ -1,4 +1,4 @@
-# Виджет Криптовалютного Обмена ₿
+# Виджет Обмена Криптовалют ₿
 
 [🇺🇸 EN](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README.md) | [🇷🇺 RU](https://github.com/kr4chinin/crypto-exchange-widget/blob/master/README_RU.md)
 
