@@ -31,6 +31,12 @@ export class CryptoExchangeStore {
 		this.fromCoin = this.coins[0] ?? null;
 		this.toCoin = this.coins[1] ?? null;
 
+		if (this.fromCoin && this.toCoin) {
+			this.isLoadingTo = true;
+
+			this.setFromAmount(1);
+		}
+
 		makeAutoObservable(this);
 	}
 
