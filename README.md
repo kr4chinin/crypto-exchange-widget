@@ -14,7 +14,7 @@ This repo represents a technical assignment which requires to create a basic cry
 
 ```bash
 # Clone the repo to an empty directory
-gh repo clone kr4chinin/crypto-exchange-widget .
+git clone https://github.com/kr4chinin/crypto-exchange-widget . 
 
 # Install dependencies
 npm install

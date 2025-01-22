@@ -14,7 +14,7 @@
 
 ```bash
 # Клонирование репозитория в пустую директорию
-gh repo clone kr4chinin/crypto-exchange-widget .
+git clone https://github.com/kr4chinin/crypto-exchange-widget . 
 
 # Установка зависимостей
 npm install
